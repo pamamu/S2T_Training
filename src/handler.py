@@ -1,7 +1,7 @@
 import sys
-from utils.IO import check_file, read_json, get_tmp_folder
+from utils.IO import check_file, read_json, get_tmp_folder, save_json
 from utils.audio_tools import mix_audio_trans
-
+import json
 
 if __name__ == '__main__':
     if len(sys.argv) != 3:
@@ -16,6 +16,8 @@ if __name__ == '__main__':
         check_file(trans_path)
         transcription = read_json(trans_path)
 
-        mix_audio_trans(info_audio, transcription)
+        info_path = mix_audio_trans(info_audio, transcription)
+
+
     except Exception as e:
         print(e)

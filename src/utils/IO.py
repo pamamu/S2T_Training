@@ -45,6 +45,12 @@ def read_json(path):
     return data
 
 
+def save_json(data, path):
+    with open(path, 'w') as out:
+        json.dump(data, out, indent=4, ensure_ascii=False)
+    return path
+
+
 def clean_tmp_folder() -> None:
     """
     TODO DOCUMENTATION
