@@ -1,13 +1,13 @@
 [
     {
-        "path": "/Users/pablomaciasmunoz/Dev/WS_TFG/S2T_AudioProcess/resources/audio/out/audio2/0.wav",
+        "path": "/Users/pablomaciasmunoz/Dev/WS_TFG/S2T_AudioProcess/resources/audio/out/audio_60s/0.wav",
         "start_time": 0.0,
-        "end_time": 2.531,
+        "end_time": 2.524,
         "voices": [
             {
                 "voice": "Voz 0562",
                 "start_time": 0.66,
-                "end_time": 2.531,
+                "end_time": 2.524,
                 "trans": [
                     {
                         "text": "son",
@@ -49,7 +49,7 @@
         ]
     },
     {
-        "path": "/Users/pablomaciasmunoz/Dev/WS_TFG/S2T_AudioProcess/resources/audio/out/audio2/1.wav",
+        "path": "/Users/pablomaciasmunoz/Dev/WS_TFG/S2T_AudioProcess/resources/audio/out/audio_60s/1.wav",
         "start_time": 2.797,
         "end_time": 11.875,
         "voices": [
@@ -138,7 +138,7 @@
         ]
     },
     {
-        "path": "/Users/pablomaciasmunoz/Dev/WS_TFG/S2T_AudioProcess/resources/audio/out/audio2/2.wav",
+        "path": "/Users/pablomaciasmunoz/Dev/WS_TFG/S2T_AudioProcess/resources/audio/out/audio_60s/2.wav",
         "start_time": 12.287,
         "end_time": 16.562,
         "voices": [
@@ -247,7 +247,7 @@
         ]
     },
     {
-        "path": "/Users/pablomaciasmunoz/Dev/WS_TFG/S2T_AudioProcess/resources/audio/out/audio2/3.wav",
+        "path": "/Users/pablomaciasmunoz/Dev/WS_TFG/S2T_AudioProcess/resources/audio/out/audio_60s/3.wav",
         "start_time": 17.033,
         "end_time": 21.561,
         "voices": [
@@ -336,7 +336,7 @@
         ]
     },
     {
-        "path": "/Users/pablomaciasmunoz/Dev/WS_TFG/S2T_AudioProcess/resources/audio/out/audio2/4.wav",
+        "path": "/Users/pablomaciasmunoz/Dev/WS_TFG/S2T_AudioProcess/resources/audio/out/audio_60s/4.wav",
         "start_time": 22.056,
         "end_time": 31.846,
         "voices": [
@@ -510,7 +510,7 @@
         ]
     },
     {
-        "path": "/Users/pablomaciasmunoz/Dev/WS_TFG/S2T_AudioProcess/resources/audio/out/audio2/5.wav",
+        "path": "/Users/pablomaciasmunoz/Dev/WS_TFG/S2T_AudioProcess/resources/audio/out/audio_60s/5.wav",
         "start_time": 32.184,
         "end_time": 36.746,
         "voices": [
@@ -624,7 +624,7 @@
         ]
     },
     {
-        "path": "/Users/pablomaciasmunoz/Dev/WS_TFG/S2T_AudioProcess/resources/audio/out/audio2/6.wav",
+        "path": "/Users/pablomaciasmunoz/Dev/WS_TFG/S2T_AudioProcess/resources/audio/out/audio_60s/6.wav",
         "start_time": 37.388,
         "end_time": 39.887,
         "voices": [
@@ -678,7 +678,7 @@
         ]
     },
     {
-        "path": "/Users/pablomaciasmunoz/Dev/WS_TFG/S2T_AudioProcess/resources/audio/out/audio2/7.wav",
+        "path": "/Users/pablomaciasmunoz/Dev/WS_TFG/S2T_AudioProcess/resources/audio/out/audio_60s/7.wav",
         "start_time": 40.296,
         "end_time": 40.972,
         "voices": [
@@ -717,14 +717,14 @@
         ]
     },
     {
-        "path": "/Users/pablomaciasmunoz/Dev/WS_TFG/S2T_AudioProcess/resources/audio/out/audio2/8.wav",
+        "path": "/Users/pablomaciasmunoz/Dev/WS_TFG/S2T_AudioProcess/resources/audio/out/audio_60s/8.wav",
         "start_time": 41.316,
-        "end_time": 47.249,
+        "end_time": 47.248,
         "voices": [
             {
                 "voice": "Voz 2",
                 "start_time": 41.316,
-                "end_time": 47.249,
+                "end_time": 47.248,
                 "trans": [
                     {
                         "text": "todos",
@@ -826,7 +826,7 @@
         ]
     },
     {
-        "path": "/Users/pablomaciasmunoz/Dev/WS_TFG/S2T_AudioProcess/resources/audio/out/audio2/9.wav",
+        "path": "/Users/pablomaciasmunoz/Dev/WS_TFG/S2T_AudioProcess/resources/audio/out/audio_60s/9.wav",
         "start_time": 47.544,
         "end_time": 52.636,
         "voices": [
@@ -915,14 +915,14 @@
         ]
     },
     {
-        "path": "/Users/pablomaciasmunoz/Dev/WS_TFG/S2T_AudioProcess/resources/audio/out/audio2/10.wav",
+        "path": "/Users/pablomaciasmunoz/Dev/WS_TFG/S2T_AudioProcess/resources/audio/out/audio_60s/10.wav",
         "start_time": 53.087,
-        "end_time": 59.076,
+        "end_time": 59.938,
         "voices": [
             {
                 "voice": "Voz 0562",
                 "start_time": 53.087,
-                "end_time": 59.076,
+                "end_time": 59.938,
                 "trans": [
                     {
                         "text": "partido",
@@ -1013,6 +1013,16 @@
                         "text": "Barcelona",
                         "start_time": 58.62,
                         "end_time": 59.13
+                    },
+                    {
+                        "text": "sea",
+                        "start_time": 59.13,
+                        "end_time": 59.28
+                    },
+                    {
+                        "text": "trasladado",
+                        "start_time": 59.28,
+                        "end_time": 60.3
                     }
                 ]
             }
