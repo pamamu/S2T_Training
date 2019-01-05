@@ -1,7 +1,7 @@
 {
   "language_model_path": "/Users/pablomaciasmunoz/Dev/WS_TFG/S2T_Training/resources/models/language/es-20k.lm",
   "phonetic_model_path": "/Users/pablomaciasmunoz/Dev/WS_TFG/S2T_Training/resources/models/phonetic/model5",
-  "acustic_model_path": "/Users/pablomaciasmunoz/Dev/WS_TFG/S2T_Training/resources/models/acustic",
+  "acoustic_model_path": "/Users/pablomaciasmunoz/Dev/WS_TFG/S2T_Training/resources/models/acustic",
   "dic_path": "/Users/pablomaciasmunoz/Dev/WS_TFG/S2T_Training/resources/models/dictionary/es.dic",
   "srilm_bin_path": "/Users/pablomaciasmunoz/Dev/WS_TFG/S2T_Training/lib/srilm/bin/macosx",
   "sequitu_bin_path": "/Users/pablomaciasmunoz/Dev/WS_TFG/S2T_Training/lib/g2p"
