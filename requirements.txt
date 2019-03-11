@@ -1,5 +1,4 @@
 certifi==2018.11.29
-numpy==1.15.4
 Pyro4==4.74
 serpent==1.27
 six==1.12.0
