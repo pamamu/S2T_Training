@@ -154,3 +154,18 @@ def save_list(info, path, element_type=0):
             for line in info:
                 f.write(' '.join(line) + '\n')
     return path
+
+
+def move_files(files_list, folder):
+    """
+    TODO DOCUMENTATION
+    :param files_list:
+    :param folder:
+    :return:
+    """
+    response = []
+    for file in files_list:
+        output = os.path.join(folder, os.path.basename(file))
+        shutil.move(file, output)
+        response.append(output)
+    return response

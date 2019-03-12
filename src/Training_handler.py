@@ -3,9 +3,10 @@ import time
 import Pyro4
 
 from ContainerHandler import ContainerHandler
-from utils.IO import check_file, read_json
+from utils.IO import check_file, read_json, move_files
 from utils.audio_tools import mix_audio_trans
 from utils.lm_tools import get_sentences, get_words, generate_dic
+from os import path
 
 containers_list = ['G2P', 'SRILM', 'SPHINXBASE']
 
@@ -74,6 +75,8 @@ class TrainingHandler(ContainerHandler):
             audio_path = audio_trans_info['audio_path']
             trans_path = audio_trans_info['transcription_path']
 
+            response = []
+
             check_file(audio_path)
             info_audio = read_json(audio_path)
 
@@ -81,6 +84,7 @@ class TrainingHandler(ContainerHandler):
             transcription = read_json(trans_path)
 
             info_path = mix_audio_trans(info_audio, transcription)
+            response.append(info_path)
 
             senteces_path = get_sentences(info_path)
             print(senteces_path)
@@ -88,23 +92,21 @@ class TrainingHandler(ContainerHandler):
             words_path = get_words(info_path)
             print(words_path)
 
-            g2p_container = Pyro4.Proxy(self.containers['G2P'])
+            # g2p_container = Pyro4.Proxy(self.containers['G2P'])
+            print("G2P call")
 
-            phonetic_dic = generate_dic(words_path)
+            # srilm_container = Pyro4.Proxy(self.containers['SRILM'])
+            print("SRILM call")
 
-            # TODO CONVERT WORDS TO PHONETIC LIST
+            # sphinxbase = Pyro4.Proxy(self.containers['SPHINXBASE'])
+            print("SPHINXBASE call")
 
-            # TODO MIX DICTIONARIES
-
-            srilm_container = Pyro4.Proxy(self.containers['SRILM'])
-
-            # TODO SRILM TOOLS
-
-            sphinxbase = Pyro4.Proxy(self.containers['SPHINXBASE'])
-
-            # TODO SPHINX TOOLS
-
-            return True
+            return move_files(response, output_folder)
 
         except Exception as e:
             print("Container {} Error: {}".format(self.container_name, e))
+
+
+if __name__ == '__main__':
+    a = TrainingHandler("Training", "PYRO:MainController@localhost:4040")
+    print(a.process_training(audio_trans_info=read_json("resources/input.json"), output_folder="/srv/shared_folder"))
