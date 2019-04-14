@@ -1,4 +1,4 @@
 {
-  "audio_path": "/srv/shared_folder/audio_5m/info.json",
-  "transcription_path": "/srv/shared_folder/Hoy_por_Hoy_(23-11-2018_-_Tramo_de_12:00_a_13:00)/trans.json"
+  "audio_path": "/Users/pablomaciasmunoz/Dev/WS_TFG/S2T/input_audios/out/info.json",
+  "transcription_path": "/Users/pablomaciasmunoz/Dev/WS_TFG/S2T/input_audios/cadenaser_elfaro_20190313_013000_040000_trans.json"
 }

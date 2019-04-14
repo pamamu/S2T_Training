@@ -80,8 +80,10 @@ class TrainingHandler(ContainerHandler):
             check_file(audio_path)
             info_audio = read_json(audio_path)
 
+
             check_file(trans_path)
             transcription = read_json(trans_path)
+            print("OK")
 
             info_path = mix_audio_trans(info_audio, transcription)
             response.append(info_path)
@@ -109,4 +111,4 @@ class TrainingHandler(ContainerHandler):
 
 if __name__ == '__main__':
     a = TrainingHandler("Training", "PYRO:MainController@localhost:4040")
-    print(a.process_training(audio_trans_info=read_json("resources/input.json"), output_folder="/srv/shared_folder"))
+    print(a.process_training(audio_trans_info=read_json("resources/input.json"), output_folder="/Users/pablomaciasmunoz/Dev/WS_TFG/S2T/input_audios"))

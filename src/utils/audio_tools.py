@@ -22,3 +22,6 @@ def get_text(trans, start, end):
         elif end < tran['start']:
             break
     return voices
+
+if __name__ == '__main__':
+    mix_audio_trans(mix_audio_trans())
