@@ -2,6 +2,7 @@ import json
 import os
 
 import shutil
+import socket
 
 
 def get_io_config() -> dict:
@@ -169,3 +170,11 @@ def move_files(files_list, folder):
         shutil.move(file, output)
         response.append(output)
     return response
+
+
+def get_ip():
+    """
+    TODO DOCUMENTATION
+    :return:
+    """
+    return socket.gethostbyname(socket.gethostname())

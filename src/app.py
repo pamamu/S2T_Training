@@ -51,7 +51,7 @@ if __name__ == '__main__':
         handler.start()
 
     except Exception as e:
-        print("Container {} Error: {}".format(container_name, e))
+        print(e)
         sys.exit(3)
     finally:
         if 'handler' in locals():
