@@ -1,6 +1,8 @@
-import os
 import json
+import os
+
 import shutil
+import socket
 
 
 def get_io_config() -> dict:
@@ -42,6 +44,7 @@ def check_file(path):
     """
     if not os.path.isfile(path):
         raise FileNotFoundError("File not found")
+    return open(path)
 
 
 def read_json(path):
@@ -50,6 +53,7 @@ def read_json(path):
     :param path:
     :return:
     """
+    check_file(path)
     with open(path) as f:
         data = json.load(f)
     return data
@@ -102,7 +106,7 @@ def get_acoustic_model_path():
     return lib_config['acoustic_model_path']
 
 
-def dic_path():
+def get_dic_path():
     """
     TODO DOCUMENTATION
     :return:
@@ -113,7 +117,7 @@ def dic_path():
     return lib_config['dic_path']
 
 
-def srilm_bin_path():
+def get_srilm_bin_path():
     """
     TODO DOCUMENTATION
     :return:
@@ -124,7 +128,7 @@ def srilm_bin_path():
     return lib_config['srilm_bin_path']
 
 
-def sequitu_bin_path():
+def get_sequitu_bin_path():
     """
     TODO DOCUMENTATION
     :return:
@@ -133,3 +137,44 @@ def sequitu_bin_path():
     if not os.path.isdir(lib_config['sequitu_bin_path']):
         raise FileNotFoundError()
     return lib_config['sequitu_bin_path']
+
+
+def save_list(info, path, element_type=0):
+    """
+    TODO DOCUMENTATION
+    :param element_type: 
+    :param path:
+    :param info:
+    :return:
+    """
+    with open(path, 'w') as f:
+        if element_type == 0:
+            for line in info:
+                f.write(line + '\n')
+        else:
+            for line in info:
+                f.write(' '.join(line) + '\n')
+    return path
+
+
+def move_files(files_list, folder):
+    """
+    TODO DOCUMENTATION
+    :param files_list:
+    :param folder:
+    :return:
+    """
+    response = []
+    for file in files_list:
+        output = os.path.join(folder, os.path.basename(file))
+        shutil.move(file, output)
+        response.append(output)
+    return response
+
+
+def get_ip():
+    """
+    TODO DOCUMENTATION
+    :return:
+    """
+    return socket.gethostbyname(socket.gethostname())
