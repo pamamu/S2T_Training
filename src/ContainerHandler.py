@@ -1,8 +1,9 @@
 import abc
-import sys
 
 import Pyro4
+
 from utils.IO import get_ip
+
 
 @Pyro4.expose
 class ContainerHandler(object):
@@ -15,7 +16,7 @@ class ContainerHandler(object):
         :param container_name:
         """
         self.container_name = container_name
-        self.daemon = Pyro4.Daemon(host=get_ip())
+        self.daemon = Pyro4.Daemon(host=get_ip(), port=40440)
         self.uri = str(self.daemon.register(self, objectId=self.container_name))
         self.main_server = Pyro4.Proxy(main_uri)
         self.running = False
