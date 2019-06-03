@@ -1,12 +1,13 @@
 import json
+import os.path
 import time
+
 import Pyro4
 
 from ContainerHandler import ContainerHandler
-from utils.IO import check_file, read_json, move_files
+from utils.IO import check_file, read_json, clean_tmp_folder, move_files, save_json
 from utils.audio_tools import mix_audio_trans
-from utils.lm_tools import get_sentences, get_words, generate_dic
-from os import path
+from utils.lm_tools import get_sentences, get_words
 
 containers_list = ['G2P', 'SRILM', 'SPHINXBASE']
 
@@ -80,13 +81,11 @@ class TrainingHandler(ContainerHandler):
             check_file(audio_path)
             info_audio = read_json(audio_path)
 
-
             check_file(trans_path)
             transcription = read_json(trans_path)
-            print("OK")
 
             info_path = mix_audio_trans(info_audio, transcription)
-            response.append(info_path)
+            # response.append(info_path)
 
             senteces_path = get_sentences(info_path)
             print(senteces_path)
@@ -94,16 +93,41 @@ class TrainingHandler(ContainerHandler):
             words_path = get_words(info_path)
             print(words_path)
 
-            # g2p_container = Pyro4.Proxy(self.containers['G2P'])
+            move_files([senteces_path, words_path], output_folder)
+
             print("G2P call")
+            g2p_container = Pyro4.Proxy(self.containers['G2P'])
+            # g2p_container = Pyro4.Proxy('PYRO:G2P@172.19.0.4:40420')
+            g2p_response = g2p_container.run(input_json=os.path.join(output_folder, 'input_g2p.json'),
+                                             output_folder=output_folder)
+            response.append(g2p_response[0])
+            print("G2P OK")
 
-            # srilm_container = Pyro4.Proxy(self.containers['SRILM'])
             print("SRILM call")
+            srilm_container = Pyro4.Proxy(self.containers['SRILM'])
+            # srilm_container = Pyro4.Proxy('PYRO:SRILM@172.19.0.5:40450')
+            srilm_response = srilm_container.run(input_json=os.path.join(output_folder, 'input_srilm.json'),
+                                                 output_folder=output_folder)
+            # response.append(srilm_response[0])
+            print("SRILM OK")
 
-            # sphinxbase = Pyro4.Proxy(self.containers['SPHINXBASE'])
             print("SPHINXBASE call")
+            sphinxbase_container = Pyro4.Proxy(self.containers['SPHINXBASE'])
+            # sphinxbase_container = Pyro4.Proxy('PYRO:SPHINXBASE@172.19.0.8:40410')
+            sphinxbase_response = sphinxbase_container.run(
+                input_json=os.path.join(output_folder, 'input_sphinxbase.json'),
+                output_folder=output_folder)
+            reduced_model = sphinxbase_container.reduce_language_model(srilm_response[0],
+                                                                       os.path.join(output_folder,
+                                                                                    'language_model.lm.bin'))
+            response.append(reduced_model)
+            response.append(sphinxbase_response)
+            print("SPHINXBASE OK")
 
-            return move_files(response, output_folder)
+            clean_tmp_folder()
+
+            response_json = save_json(response, os.path.join(output_folder, 'output_training.json'))
+            return response_json
 
         except Exception as e:
             print("Container {} Error: {}".format(self.container_name, e))
@@ -111,4 +135,5 @@ class TrainingHandler(ContainerHandler):
 
 if __name__ == '__main__':
     a = TrainingHandler("Training", "PYRO:MainController@localhost:4040")
-    print(a.process_training(audio_trans_info=read_json("resources/input.json"), output_folder="/Users/pablomaciasmunoz/Dev/WS_TFG/S2T/input_audios"))
+    print(a.process_training(audio_trans_info=read_json("resources/input_training.json"),
+                             output_folder="/srv/shared_folder"))
