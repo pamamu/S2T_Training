@@ -1,2 +1,6 @@
 
 \.idea/
+\venv
+lib
+*.pyc
+\.DS_Store
