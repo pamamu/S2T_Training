@@ -172,6 +172,16 @@ def move_files(files_list, folder):
     return response
 
 
+def copy_file(origin, dest):
+    """
+    TODO DOCUMENTATION
+    :param origin:
+    :param dest:
+    :return:
+    """
+    shutil.copy(origin, dest)
+
+
 def get_ip():
     """
     TODO DOCUMENTATION

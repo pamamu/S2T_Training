@@ -5,7 +5,7 @@ import time
 import Pyro4
 
 from ContainerHandler import ContainerHandler
-from utils.IO import check_file, read_json, clean_tmp_folder, move_files, save_json
+from utils.IO import check_file, read_json, clean_tmp_folder, move_files, save_json, copy_file
 from utils.audio_tools import mix_audio_trans
 from utils.lm_tools import get_sentences, get_words
 
@@ -41,7 +41,7 @@ class TrainingHandler(ContainerHandler):
         :param container:
         :return:
         """
-        if container in containers_list and not (container in self.containers.keys()):
+        if container in containers_list:
             self.containers[container] = uri
             print("Container {}: Registered slave <{}> with uri <{}>".format(self.container_name, container, uri))
             return True
@@ -95,6 +95,8 @@ class TrainingHandler(ContainerHandler):
 
             move_files([senteces_path, words_path], output_folder)
 
+            copy_file(audio_path, os.path.join(output_folder, 'info.json'))
+
             print("G2P call")
             g2p_container = Pyro4.Proxy(self.containers['G2P'])
             # g2p_container = Pyro4.Proxy('PYRO:G2P@172.19.0.4:40420')
@@ -111,20 +113,20 @@ class TrainingHandler(ContainerHandler):
             # response.append(srilm_response[0])
             print("SRILM OK")
 
-            print("SPHINXBASE call")
-            sphinxbase_container = Pyro4.Proxy(self.containers['SPHINXBASE'])
-            # sphinxbase_container = Pyro4.Proxy('PYRO:SPHINXBASE@172.19.0.8:40410')
-            sphinxbase_response = sphinxbase_container.run(
-                input_json=os.path.join(output_folder, 'input_sphinxbase.json'),
-                output_folder=output_folder)
-            reduced_model = sphinxbase_container.reduce_language_model(srilm_response[0],
-                                                                       os.path.join(output_folder,
-                                                                                    'language_model.lm.bin'))
-            response.append(reduced_model)
-            response.append(sphinxbase_response)
+            # print("SPHINXBASE call")
+            # sphinxbase_container = Pyro4.Proxy(self.containers['SPHINXBASE'])
+            # # sphinxbase_container = Pyro4.Proxy('PYRO:SPHINXBASE@172.19.0.8:40410')
+            # sphinxbase_response = sphinxbase_container.run(
+            #     input_json=os.path.join(output_folder, 'input_sphinxbase.json'),
+            #     output_folder=output_folder)
+            # reduced_model = sphinxbase_container.reduce_language_model(srilm_response[0],
+            #                                                            os.path.join(output_folder,
+            #                                                                         'language_model.lm.bin'))
+            # response.append(reduced_model)
+            # response.append(sphinxbase_response)
             print("SPHINXBASE OK")
 
-            clean_tmp_folder()
+            # clean_tmp_folder()
 
             response_json = save_json(response, os.path.join(output_folder, 'output_training.json'))
             return response_json
@@ -135,5 +137,5 @@ class TrainingHandler(ContainerHandler):
 
 if __name__ == '__main__':
     a = TrainingHandler("Training", "PYRO:MainController@localhost:4040")
-    print(a.process_training(audio_trans_info=read_json("resources/input_training.json"),
+    print(a.process_training(audio_trans_info=read_json("/srv/shared_folder/input_training.json"),
                              output_folder="/srv/shared_folder"))
